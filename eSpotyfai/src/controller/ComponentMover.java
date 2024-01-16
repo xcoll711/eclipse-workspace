@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
  *
  *  @author Rob Camick
  *  @author Darryl Burke
+ * a
  */
 public class ComponentMover extends MouseAdapter
 {
