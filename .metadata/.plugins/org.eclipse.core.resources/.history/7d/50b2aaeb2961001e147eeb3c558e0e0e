@@ -1,0 +1,23 @@
+package exemple4;
+
+import java.util.Scanner;
+
+public class LeerNombre {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Nombre: ");
+        String nombre = sc.nextLine();
+        
+        if(nombre.length() != 0) {
+            args = new String[]{nombre}; // Crear un nuevo arreglo de argumentos con el nombre ingresado
+            System.out.println("Nombre ingresado: " + args[0]);
+            System.exit(0); // Salir del programa con código de salida 0 (éxito)
+        } else {
+            System.out.println("Error: El nombre no puede estar vacío.");
+            System.exit(1); // Salir del programa con código de salida 1 (error)
+        }
+    }
+}
+
+

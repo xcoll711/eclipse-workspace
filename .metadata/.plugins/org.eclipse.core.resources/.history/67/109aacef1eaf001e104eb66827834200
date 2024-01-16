@@ -1,0 +1,78 @@
+/*Crea un programa Java que te permita subir ficheros al servidor FTP local, 
+ * al directorio raíz del usuario que se conecte. Utiliza la clase JFileChooser 
+ * para seleccionar el fichero a subir de tu disco duro. Después de realizada la 
+ * subida se debe mostrar un mensaje indicándolo. A continuación, muestra en 
+ * consola el contenido del directorio raíz para ver si aparece el fichero recientemente subido. 
+ * La Figura 4.5 muestra un momento de la ejecución del programa. */
+
+package u4e02;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+
+public class Test {
+	public static void main(String[] args) {
+		FTPClient cliente = new FTPClient();
+
+		String servidor = "localhost";
+		String user = "usuario1";
+		String pasw = "1234";
+
+		try {
+			System.out.println("Conectandose a " + servidor);
+			cliente.connect(servidor);
+			boolean login = cliente.login(user, pasw);
+
+			cliente.setFileType(FTP.BINARY_FILE_TYPE);
+			String direc = "/NUEVODIREC";
+			cliente.enterLocalPassiveMode();
+
+			if (login) {				
+				System.out.println("Login correcto");
+
+				if (!cliente.changeWorkingDirectory(direc)) {
+					String directorio = "NUEVODIREC";
+
+					if (cliente.makeDirectory(directorio)) {
+						System.out.println("Directorio :  " + 
+								directorio + " creado ...");
+						cliente.changeWorkingDirectory(directorio);
+					} else {
+						System.out.println("No se ha podido crear el Directorio");
+						System.exit(0);
+					}
+
+				}
+
+				System.out.println("Directorio actual: " +
+						cliente.printWorkingDirectory());
+
+				String archivo ="C:\\FTP\\EJEMPLO.pdf";				
+				BufferedInputStream in = new BufferedInputStream
+						(new FileInputStream(archivo));
+
+				if (cliente.storeFile("prueba.pdf", in))
+					System.out.println("Subido correctamente... ");
+				else
+					System.out.println("No se ha podido subir el fichero... ");
+
+
+
+				in.close(); // Cerrar flujo
+				cliente.logout();
+				cliente.disconnect();
+			}
+
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+
+	}// main
+
+
+
+}// ..

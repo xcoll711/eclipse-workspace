@@ -1,0 +1,75 @@
+package almacenes;
+
+import java.util.Random;
+
+public class Cliente implements Runnable {
+
+	  private static final int MAX_INTENTOS = 10;
+
+	    private boolean puertaOcupada;
+	    private int nProductos;
+	    private String nombre;
+	    private Random esperaRandom;
+
+	    public ClienteAlmacen(String nombre, int nProductos) {
+	        this.nombre = nombre;
+	        this.nProductos = nProductos;
+	        this.esperaRandom = new Random();
+	    }
+
+	    @Override
+	    public void run() {
+	        for (int intento = 0; intento <= MAX_INTENTOS; intento++) {
+	            if (!puertaOcupada && intentarEntrar()) {
+	                try {
+	                    Thread.sleep(esperaRandom.nextInt(200));
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+
+	                liberarPuerta();
+	                if (cogerProducto()) {
+	                    System.out.println(this.nombre + " COGIÓ UN PRODUCTO! <--------------------------");
+	                    return;
+	                } else {
+	                    System.out.println(this.nombre + " ha pasado por la puerta pero no ha cogido nada ");
+	                    return;
+	                }
+	            } else {
+	                try {
+	                    Thread.sleep(esperaRandom.nextInt(200));
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	        System.out.println(this.nombre + " no ha entrado.");
+	    }
+
+	    private synchronized boolean intentarEntrar() {
+	        if (puertaOcupada) {
+	            try {
+	                Thread.sleep(10);
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	            if (puertaOcupada) {
+	                return false;
+	            }
+	        }
+	        puertaOcupada = true;
+	        return true;
+	    }
+
+	    private synchronized void liberarPuerta() {
+	        puertaOcupada = false;
+	    }
+
+	    private synchronized boolean cogerProducto() {
+	        if (this.nProductos > 0) {
+	            this.nProductos--;
+	            return true;
+	        }
+	        return false;
+	    }
+	}

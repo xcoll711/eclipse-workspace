@@ -1,0 +1,18 @@
+package u2e4;
+
+class MyHilo extends Thread { 
+	private SolicitaSuspender suspender = new SolicitaSuspender(); 
+	//petición de SUSPENDER HILO 
+	public void Suspende() { suspender.set(true); } 
+	//petición de CONTINUAR 
+	public void Reanuda () { suspender.set(false); } 
+	public void run() { 
+		try { 
+			while (haya trabajo por hacer) { 
+				suspender.esperandoParaReanudar(); //comprobar 
+			} 
+			Capítulo 2. Programación multihilo 
+			85 
+		} catch (InterruptedException exception) { } 
+	} 
+} // 

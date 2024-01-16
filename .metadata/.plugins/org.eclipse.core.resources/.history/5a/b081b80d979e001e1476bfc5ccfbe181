@@ -1,0 +1,43 @@
+package ej_data_udp;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Server {
+
+    private static final int PUERTO = 8100;
+
+    public static void main(String[] args) throws IOException {
+        // Crea un socket UDP
+        DatagramSocket socket = new DatagramSocket(PUERTO);
+
+        // Bucle infinito para escuchar peticiones
+        while (true) {
+            // Recibe una petición del cliente
+            DatagramPacket peticion = new DatagramPacket(new byte[1024], 1024);
+            socket.receive(peticion);
+
+            // Obtiene la hora actual
+            SimpleDateFormat formato = new SimpleDateFormat("yyyyMMddHHmmss");
+            String fechaActual = formato.format(new Date());
+
+            // Procesa la petición
+            String formatoPeticion = new String(peticion.getData(), 0, peticion.getLength());
+            if (formatoPeticion.equals("yyyMMddHHmmss")) {
+                // Devuelve la hora actual al cliente
+                DatagramPacket respuesta = new DatagramPacket(fechaActual.getBytes(), fechaActual.length(),
+                        peticion.getAddress(), peticion.getPort());
+                socket.send(respuesta);
+            } else {
+                // Devuelve un error al cliente
+                DatagramPacket respuesta = new DatagramPacket("Error: Formato de fecha no válido".getBytes(),
+                        "Error: Formato de fecha no válido".length(), peticion.getAddress(), peticion.getPort());
+                socket.send(respuesta);
+            }
+        }
+    }
+}

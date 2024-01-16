@@ -1,0 +1,86 @@
+package barberos;
+
+public class Test {
+
+    private static final int NUM_SILLAS = 5;
+    private static final int NUM_BARBEROS = 3;
+
+    private static List<Silla> sillas = new ArrayList<>();
+    private static List<Barbero> barberos = new ArrayList<>();
+
+    public static void main(String[] args) {
+        for (int i = 0; i < NUM_SILLAS; i++) {
+            sillas.add(new Silla());
+        }
+
+        for (int i = 0; i < NUM_BARBEROS; i++) {
+            barberos.add(new Barbero());
+        }
+
+        for (Barbero barbero : barberos) {
+            barbero.start();
+        }
+
+        for (int i = 0; i < NUM_CLIENTES; i++) {
+            new Cliente().start();
+        }
+    }
+}
+
+class Silla {
+
+    private boolean ocupada = false;
+
+    public synchronized void ocupar() {
+        this.ocupada = true;
+    }
+
+    public synchronized void desocupar() {
+        this.ocupada = false;
+        notifyAll();
+    }
+}
+
+class Barbero extends Thread {
+
+    @Override
+    public void run() {
+        while (true) {
+            synchronized (sillas) {
+                while (sillas.isEmpty()) {
+                    try {
+                        sillas.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Silla silla = sillas.remove(0);
+                silla.ocupar();
+            }
+
+            // Afeitar al cliente
+
+            sillas.add(silla);
+        }
+    }
+}
+
+class Cliente extends Thread {
+
+    @Override
+    public void run() {
+        synchronized (sillas) {
+            if (!sillas.isEmpty()) {
+                Silla silla = sillas.remove(0);
+                silla.ocupar();
+            } else {
+                return;
+            }
+        }
+
+        // El cliente ha sido afeitado
+
+        sillas.add(silla);
+    }
+}

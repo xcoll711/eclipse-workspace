@@ -1,0 +1,45 @@
+package u2e10;
+public class Produc_Consum {
+    public static void main(String[] args) {
+        Cola cola = new Cola();
+        Productor p = new Productor(cola, "src/u2e10/arxiu.txt");
+
+        p.start();
+
+        // Los consumidores son hilos
+        new Thread(() -> {
+            String data;
+            while ((data = cola.get()) != null) {
+                System.out.println("Consumidor 1 consume --> " + data);
+                // 0.1 sec de espera
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("Consumidor 1 ha finalizado.");
+        }).start();
+
+        new Thread(() -> {
+            String data;
+            while ((data = cola.get()) != null) {
+                System.out.println("Consumidor 2 consume --> " + data);
+                // 0.1 sec de espera
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("Consumidor 2 ha finalizado.");
+        }).start();
+
+        // Esperar a que el productor termine
+        while (p.isAlive()) {
+        }
+
+        // El productor ha finalizado
+        System.out.println("Productor ha finalizado.");
+    }
+}

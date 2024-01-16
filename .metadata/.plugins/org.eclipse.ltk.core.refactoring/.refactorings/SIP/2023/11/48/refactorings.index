@@ -1,0 +1,27 @@
+1701092235830	Delete element
+1701092889240	Delete element
+1701092954228	Rename type 'repaso'
+1701093443551	Rename resource 'input.txt'
+1701184463054	Delete element
+1701187519420	Rename type 'HinchaGlobos'
+1701187526034	Rename type 'PinchaGlobos'
+1701187537477	Rename type 'Test'
+1701188050804	Rename type 'Inicio'
+1701190554260	Rename field 'maxHinchando'
+1701190652023	Rename field 'maxGlobos'
+1701190672298	Rename field 'maxVolumen'
+1701191864676	Rename type 'PinchaGlobo'
+1701191882512	Rename type 'HinchaGlobo'
+1701191890941	Rename type 'Globos'
+1701192189092	Rename package 'zzglobos'
+1701192201239	Rename type 'Test'
+1701192280844	Rename package 'examen1e2'
+1701192815634	Rename type 'Recurso'
+1701193386797	Rename field 'inflantAhora'
+1701193406114	Rename field 'nGlobo'
+1701193566916	Rename field 'numero'
+1701193824085	Rename local variable 'estalla'
+1701194136318	Rename method 'hincho'
+1701195886863	Rename method 'dameGlobo'
+1701197166876	Delete element
+1701197705256	Rename type 'ReservaRecurs'

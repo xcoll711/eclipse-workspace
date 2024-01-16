@@ -1,0 +1,12 @@
+/*Crea un programa Java que te permita subir ficheros al servidor FTP local, 
+ * al directorio raíz del usuario que se conecte. Utiliza la clase JFileChooser 
+ * para seleccionar el fichero a subir de tu disco duro. Después de realizada la 
+ * subida se debe mostrar un mensaje indicándolo. A continuación, muestra en 
+ * consola el contenido del directorio raíz para ver si aparece el fichero recientemente subido. 
+ * La Figura 4.5 muestra un momento de la ejecución del programa. */
+
+package u4e02;
+
+public class Test {
+192
+}

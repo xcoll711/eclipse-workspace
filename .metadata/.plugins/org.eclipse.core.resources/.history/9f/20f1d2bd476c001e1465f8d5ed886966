@@ -1,0 +1,60 @@
+package exercise4;
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import java.awt.Font;
+
+public class Exercise4 {
+
+    private JFrame frame;
+    private JLabel lblHelloWorld;
+
+
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Exercise4 window = new Exercise4();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public Exercise4() {
+        initialize();
+    }
+
+  
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 450, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        lblHelloWorld = new JLabel("");
+        lblHelloWorld.setFont(new Font("Tahoma", Font.PLAIN, 68));
+        lblHelloWorld.setHorizontalTextPosition(0);
+        frame.getContentPane().add(lblHelloWorld, BorderLayout.CENTER);
+        
+        
+        JButton btn = new JButton("Click here!!");
+        frame.getContentPane().add(btn, BorderLayout.SOUTH);
+        
+
+        btn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                lblHelloWorld.setText("Hello World");
+            }
+        });
+    }
+}

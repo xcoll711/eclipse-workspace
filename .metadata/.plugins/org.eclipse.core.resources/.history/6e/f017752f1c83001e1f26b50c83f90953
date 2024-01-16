@@ -1,0 +1,48 @@
+package almacenes;
+
+
+public class Puerta {
+   
+    private boolean ocupada;
+
+    
+    public Puerta() {
+        this.ocupada = false;
+    }
+
+    //Comprueba si la puerta está ocupada.
+    public boolean estaOcupada() {
+        return this.ocupada;
+    }
+
+    /**
+     * Libera la puerta.
+     */
+    public synchronized void liberarPuerta() {
+        this.ocupada = false;
+    }
+
+    /**
+     * Intenta entrar por la puerta.
+     * @return `true` si la puerta está libre y se puede entrar, `false` en caso contrario
+     */
+    public synchronized boolean intentarEntrar() {
+        if (this.ocupada) {
+            try {
+                // Espera a que la puerta esté libre
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Si la puerta sigue ocupada después de esperar, devuelve false
+            if (this.ocupada) {
+                return false;
+            }
+        }
+
+        // Si llegamos a este punto, la puerta está libre, así que la ocupamos y devolvemos true
+        this.ocupada = true;
+        return true;
+    }
+}

@@ -1,0 +1,33 @@
+package ej_data_udp;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+public class Cliente {
+
+    private static final String IP_SERVIDOR = "127.0.0.1";
+    private static final int PUERTO_SERVIDOR = 8100;
+
+    public static void main(String[] args) throws IOException {
+        // Crea un socket UDP
+        DatagramSocket socket = new DatagramSocket();
+
+        // Crea un paquete con la petición
+        String formatoPeticion = "yyyyMMddHHmmss";
+        byte[] datosPeticion = formatoPeticion.getBytes();
+        DatagramPacket peticion = new DatagramPacket(datosPeticion, datosPeticion.length,
+                InetAddress.getByName(IP_SERVIDOR), PUERTO_SERVIDOR);
+
+        // Envía la petición al servidor
+        socket.send(peticion);
+
+        // Recibe la respuesta del servidor
+        DatagramPacket respuesta = new DatagramPacket(new byte[1024], 1024);
+        socket.receive(respuesta);
+
+        // Imprime la respuesta
+        System.out.println("fecha_UDP> " + new String(respuesta.getData(), 0, respuesta.getLength()));
+    }
+}

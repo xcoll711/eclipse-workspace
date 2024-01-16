@@ -1,0 +1,36 @@
+package almacenes;
+
+public class Test {
+    public static void main(String[] args) throws InterruptedException {
+           
+    	// 
+    		final int NCLIENTES  = 20;
+            final int NPRODUCTOS = 10;
+
+            Cliente[] cliente = new Cliente[NCLIENTES];
+            Almacen almacen = new Almacen(NPRODUCTOS);
+            Puerta puerta = new Puerta();
+
+            Thread[]    hilosAsociados=new Thread[NCLIENTES];
+
+            for (int i=0; i<NCLIENTES; i++){
+                    int id = i;
+                    cliente[i]          = new Cliente(puerta, almacen,id);
+                    hilosAsociados[i]   = new Thread(cliente[i]);
+                    //Intentamos arrancar el hilo
+                    hilosAsociados[i].start();
+            } 
+
+            for (int i=0; i<NCLIENTES; i++){
+                    hilosAsociados[i].join();
+            } 
+   
+    
+    }
+    
+    
+}
+
+
+
+

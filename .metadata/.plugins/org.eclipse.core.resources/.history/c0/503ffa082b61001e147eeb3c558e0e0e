@@ -1,0 +1,44 @@
+package exemple4;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class exempleProcessos4 {
+	public static void main(String[] args) throws IOException {
+
+		// Creamos un objeto File al directorio donde está Ejemplo2
+		File directorio = new File("C:\\Users\\ciclesgs.EAAULA211W-024\\eclipse-workspace\\SIP\\src\\exemple4");
+
+		// E1 proceso a ejecutar es "java" para ejecutar el archivo compilado "exempleProcessos2"
+		ProcessBuilder pb = new ProcessBuilder("java", "LeerNombre.java");
+
+		// Se establece el directorio donde se encuentra el ejecutable
+		pb.directory(directorio);
+		System.out.println("a");
+		System.out.printf("Directorio de trabajo: %s%n", pb.directory());
+
+		// Se ejecuta el proceso
+		Process p = pb.start();
+		System.out.println(777);
+		
+		try {
+			InputStream is = p.getInputStream();
+			System.out.println(4);
+
+			int c;
+			while ((c = is.read()) != -1)
+				System.out.print((char) c);
+
+			int codiError = p.waitFor();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+
+		}	     
+
+
+	}
+}

@@ -1,0 +1,37 @@
+package u2e10;
+
+
+
+class Cola {
+    private String data;
+    private boolean disponible = false;
+
+    public synchronized String get() {
+        while (!disponible) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        if (!disponible) {
+            return null;
+        }
+        disponible = false;
+        notify();
+        return data;
+    }
+
+    public synchronized void put(String charString) {
+        while (disponible) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        data = charString;
+        disponible = true;
+        notify();
+    }
+}

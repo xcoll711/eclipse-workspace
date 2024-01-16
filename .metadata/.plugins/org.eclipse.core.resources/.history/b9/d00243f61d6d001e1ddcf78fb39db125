@@ -1,0 +1,37 @@
+package u2e4;
+package u2e4;
+
+class MyHilo extends Thread {
+
+    int contador = 0;
+
+    private SolicitaSuspender suspender = new SolicitaSuspender();
+
+    // petición de SUSPENDER HILO
+    public void Suspende() {
+        suspender.set(true);
+    }
+
+    // petición de CONTINUAR
+    public void Reanuda() {
+        suspender.set(false);
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void run() {
+        try {
+            while (true) {
+                contador++;
+                System.out.println(contador);
+                Thread.sleep(777);
+
+                suspender.esperandoParaReanudar();
+            }
+
+        } catch (InterruptedException exception) {
+        }
+    }
+}

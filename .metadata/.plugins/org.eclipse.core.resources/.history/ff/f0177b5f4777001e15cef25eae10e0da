@@ -1,0 +1,84 @@
+package controller;
+
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.HashMap;
+
+import javax.swing.border.*;
+
+
+
+import view.View;
+
+public class ActionListeners {
+
+
+	public void buttons() {
+
+		View.btnAfegeix.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("You've pressed *Afegeix*");	
+
+
+			}
+		});
+
+		View.btnReinicia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("You've pressed *Reinicia*");	
+
+
+			}
+		});
+
+		View.cbCurs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				 // I initialized
+			    HashMap<String, Integer> assignatures = null;
+
+			    System.out.println("You've pressed *ComboBox Curs*");
+
+			    int selected = View.cbCurs.getSelectedIndex();
+
+			    switch (selected) {
+			        case 1 -> assignatures.putAll(model.CursIAssignatures.aSMX1) ;
+			        case 2 -> assignatures = model.CursIAssignatures.aSMX2;
+			        case 3 -> assignatures = model.CursIAssignatures.aDAW1;
+			        case 4 -> assignatures = model.CursIAssignatures.aDAW2;
+			        case 5 -> assignatures = model.CursIAssignatures.aDAM1;
+			        case 6 -> assignatures = model.CursIAssignatures.aDAM2;
+			    }
+
+
+				for (String icurs : assignatures.keySet()) {
+					View.cbCurs.addItem(icurs);
+				}
+
+				//String selectedIcurs = assignatures.get(selected);
+				//View.cbCurs.setSelectedItem(selectedIcurs);
+			}
+		}
+				);
+
+		View.cbAssignatures.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("You've pressed *ComboBox Assignatures*");	
+
+
+			}
+		});
+
+
+
+	}
+
+}
+
+
+

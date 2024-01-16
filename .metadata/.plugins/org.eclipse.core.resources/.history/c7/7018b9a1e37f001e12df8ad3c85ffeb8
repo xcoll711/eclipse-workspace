@@ -1,0 +1,69 @@
+package barberos;
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+
+public class Test {
+
+    private static final int NUM_BARBEROS = 5;
+    private static final int NUM_SILLAS = 10;
+
+    private static Semaphore sillasLibres = new Semaphore(NUM_SILLAS, true);
+    private static Semaphore barberosLibres = new Semaphore(0);
+
+    public static void main(String[] args) throws InterruptedException {
+
+        // Creamos los barberos
+        for (int i = 0; i < NUM_BARBEROS; i++) {
+            new Thread(new Barbero()).start();
+        }
+
+        // Generamos clientes continuamente
+        while (true) {
+            new Thread(new Cliente()).start();
+        }
+    }
+
+    static class Barbero implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    sillasLibres.acquire();
+                } catch (InterruptedException e) {
+                    return;
+                }
+
+                // Hay una silla libre, así que un cliente puede entrar
+                System.out.println("Un barbero está libre");
+                barberosLibres.release();
+            }
+        }
+    }
+
+    static class Cliente implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                sillasLibres.acquire();
+            } catch (InterruptedException e) {
+                // No hay sillas libres, así que el cliente se marcha
+                System.out.println("No hay sillas libres, el cliente se marcha");
+                return;
+            }
+
+            // Hay una silla libre, así que el cliente se sienta
+            System.out.println("Un cliente se sienta");
+            barberosLibres.release();
+
+            // El cliente espera a que un barbero le afeite
+            System.out.println("El cliente está esperando");
+            Thread.sleep(1000);
+
+            // El cliente está afeitado y se marcha
+            System.out.println("El cliente está afeitado");
+            sillasLibres.release();
+        }
+    }
+}

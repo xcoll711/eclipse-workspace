@@ -1,0 +1,11 @@
+1701697895212	Delete element
+1701698755031	Rename local variable 'receivedMessage'
+1701698857809	Rename local variable 'receivePacket'
+1701698934893	Rename local variable 'clientPort'
+1701698955325	Rename local variable 'clientAddress'
+1701698977150	Rename local variable 'sendPacket'
+1701699085179	Rename local variable 'sendData'
+1701802582918	Rename local variable 'receiveData'
+1701806611498	Delete element
+1701806724635	Rename type 'UDPCliente'
+1701806738780	Rename type 'UDPServer'

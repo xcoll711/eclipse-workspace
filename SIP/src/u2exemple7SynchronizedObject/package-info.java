@@ -1,0 +1,1 @@
+package u2exemple7SynchronizedObject;

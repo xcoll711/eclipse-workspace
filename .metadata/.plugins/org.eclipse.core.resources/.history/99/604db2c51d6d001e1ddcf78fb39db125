@@ -1,0 +1,30 @@
+package u2e4;
+
+public class Test {
+
+	public static void main(String[] args) {
+
+
+        String cadena;
+        MyHilo hilo = new MyHilo();
+        hilo.start();
+
+        do {
+            System.out.println("Introduce S para suspender el hilo, R para reanudarlo o * para terminar");
+            cadena = System.console().readLine();
+
+            switch (cadena) {
+                case "S":
+                    hilo.Suspende();
+                    break;
+                case "R":
+                    hilo.Reanuda();
+                    break;
+            }
+
+        } while (cadena != "*");
+
+        System.out.println("El contador vale " + hilo.getContador());
+	}
+
+}

@@ -1,0 +1,4 @@
+Això és la primera linia.
+Això és la segona linia.
+Això és la tercera linia.
+Això és la quarta linia.

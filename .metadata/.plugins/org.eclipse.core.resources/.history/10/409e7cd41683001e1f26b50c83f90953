@@ -1,0 +1,48 @@
+package almacenes;
+
+import java.util.Random;
+
+public class Cliente implements Runnable {
+
+    private static final int MAX_INTENTOS = 10;
+
+    private final Puerta puerta;
+    private final Almacen almacen;
+    private final String nombre;
+    private final Random generador;
+
+    public Cliente(Puerta puerta, Almacen almacen, String nombre) {
+        this.puerta = puerta;
+        this.almacen = almacen;
+        this.nombre = nombre;
+        this.generador = new Random();
+    }
+
+    private void esperar() {
+        try {
+            Thread.sleep(generador.nextInt(100));
+        } catch (InterruptedException ex) {
+            System.out.println("Falló la espera");
+        }
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i <= MAX_INTENTOS; i++) {
+            if (!puerta.estaOcupada() && puerta.intentarEntrar()) {
+                esperar();
+                puerta.liberarPuerta();
+                if (almacen.cogerProducto()) {
+                    System.out.println(this.nombre + " cogió un producto!");
+                    return;
+                } else {
+                    System.out.println(this.nombre + " ha pasado por la puerta pero no ha cogido nada ");
+                    return;
+                }
+            } else {
+                esperar();
+            }
+           System.out.println(this.nombre +" ha hecho demasiados intentos y no ha entrado!");
+        }
+    }
+}

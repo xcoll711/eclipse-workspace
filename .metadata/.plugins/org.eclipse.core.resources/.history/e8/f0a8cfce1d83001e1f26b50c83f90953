@@ -1,0 +1,55 @@
+package almacenes;
+
+public class Test {
+
+  
+    public static void main(String[] args) throws InterruptedException {
+
+      
+        final int NCLIENTES = 30;
+        final int NPRODUCTOS = 10;
+
+   
+        Cliente[] cliente = new Cliente[NCLIENTES];
+        Thread[] clientes = new Thread[NCLIENTES];
+
+        Almacen almacen = new Almacen(NPRODUCTOS);
+
+        
+        Puerta puerta = new Puerta();
+
+
+        /*
+         * Bucle que se ejecuta `NCLIENTES` veces.
+         */
+        for (int i = 0; i < NCLIENTES; i++) {
+
+            /*
+             * Asigna el valor de la variable `i` a la variable `id`.
+             */
+            int id = i;
+
+            /*
+             * Crea un nuevo objeto de la clase `Cliente` con la puerta `puerta`, el almacén `almacen` y el identificador `id`.
+             */
+            cliente[i] = new Cliente(puerta, almacen, id);
+
+            /*
+             * Crea un nuevo objeto de la clase `Thread` con el cliente `cliente[i]` como argumento.
+             */
+            clientes[i] = new Thread(cliente[i]);
+
+            /*
+             * Inicia el hilo `hilosAsociados[i]`.
+             */
+            clientes[i].start();
+        }
+
+        /*
+         * Bucle que espera a que todos los hilos terminen de ejecutarse.
+         */
+        for (int i = 0; i < NCLIENTES; i++) {
+            clientes[i].join();
+        }
+    }
+}

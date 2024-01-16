@@ -1,0 +1,35 @@
+package u2e10;
+public class Produc_Consum {
+	
+	public static Cola cola = new Cola();
+	public static Consumidor c1 = new Consumidor(cola, 1);
+	public static Consumidor c2 = new Consumidor(cola, 2);
+	public static Productor p = new Productor(cola, "src/u2e10/arxiu.txt");
+
+	
+	public static void main(String[] args) {
+
+
+		p.start();
+		c1.start();
+		c2.start();
+
+		// Esperar a que los consumidores terminen y luego interrumpir el productor
+		try {
+
+			c1.join();
+			c2.join();
+
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+
+		// Comprobar el estado de los consumidores
+
+
+		System.out.println("Estado del Consumidor 1: " + c1.getState());
+		System.out.println("Estado del Consumidor 2: " + c2.getState());
+	}
+}

@@ -1,0 +1,32 @@
+package u2e9AD;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
+public class Main {
+    public static void main(String[] args) {
+        Producte[] productes = {
+            new Producte(1, "Producte1", 10.5, true, 'A'),
+            new Producte(2, "Producte2", 20.0, false, 'B'),
+            new Producte(3, "Producte3", 15.75, true, 'C'),
+            new Producte(4, "Producte4", 30.2, false, 'D'),
+            new Producte(5, "Producte5", 25.3, true, 'E')
+        };
+
+        String nomFitxer = "src//u2e9AD//productes.dat";
+
+        try (RandomAccessFile raf = new RandomAccessFile(new File(nomFitxer), "rw")) {
+            for (Producte producte : productes) {
+                raf.writeInt(producte.id);
+                raf.writeUTF(String.format("%-10s", producte.nom));
+                raf.writeDouble(producte.preu);
+                raf.writeBoolean(producte.descompte);
+                raf.writeChar(producte.tipus);
+            }
+            System.out.println("Dades dels productes escrits correctament al fitxer.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

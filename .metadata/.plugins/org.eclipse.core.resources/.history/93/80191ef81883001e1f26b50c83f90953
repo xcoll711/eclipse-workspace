@@ -1,0 +1,19 @@
+package almacenes;
+
+public class Almacen {
+	
+    private int nProductos;
+   
+    public Almacen(int nProductos){
+            this.nProductos=nProductos;
+    }
+    
+    public boolean cogerProducto(){
+            if (this.nProductos>0){
+                    this.nProductos--;
+                    return true;
+            }
+            return false;
+    }
+    
+}

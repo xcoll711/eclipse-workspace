@@ -1,0 +1,34 @@
+package almacenes;
+
+public class Puerta {
+    boolean ocupada;
+
+    Puerta(){
+            this.ocupada=false;
+
+    }
+    public boolean estaOcupada(){
+            return this.ocupada;
+    }
+    public synchronized void liberarPuerta(){
+            this.ocupada=false;
+    }
+    public synchronized boolean intentarEntrar(){
+        if (this.ocupada) {
+            try {
+                // Simulamos una pequeña demora para aumentar la posibilidad de una condición de carrera
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (this.ocupada) {
+                return false;
+            }
+        }
+        /* Si llegamos aquí, la puerta estaba libre
+           pero la pondremos a ocupada un tiempo
+           y luego la volveremos a poner a "libre"*/
+        this.ocupada=true;
+        return true;
+    }
+}

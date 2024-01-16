@@ -1,0 +1,62 @@
+package almacenes;
+
+import java.util.Random;
+
+public class Cliente implements Runnable {
+
+    private static final int MAX_INTENTOS = 10;
+    
+    private int id;
+  
+  /*
+   *Hacemos un random para meter una espera a las acciones de los cliente 
+   *y no todos los primeros clientes pillen un producto de golpe  
+    */
+    private Random esperaRandom;
+    
+    //Declaramos un puerta y un almacen para poder acceder a sus métodos sin hacerlos static
+    private Puerta puerta;
+    private Almacen almacen;
+
+
+    public Cliente(Puerta puerta, Almacen almacen, int id) {
+        this.id = id;
+        this.puerta = puerta;
+        this.almacen = almacen;
+        this.esperaRandom = new Random();
+    }
+
+ 
+  
+    
+    @Override
+    public void run() {
+    	
+    	//El cliente intenta entrar en el almacén un máximo de MAX_INTENTOS veces.
+        for (int intento = 0; intento <= MAX_INTENTOS; intento++) {
+            if (!puerta.estaOcupada() && puerta.intentarEntrar()) {
+            	
+            	
+            	
+                puerta.desocuparPuerta();
+                if (almacen.cogerProducto()) {
+                    System.out.println("Cliente "+this.id + " COGIÓ UN PRODUCTO! <---------------------");
+                    return;
+                } else {
+                    System.out.println("Cliente "+this.id + " ha pasado por la puerta pero no ha cogido nada ");
+                    return;
+                }
+            } else {
+            	
+            	// Con esto hacemos que los clientes no lleguen tan a la vez
+            	try {
+					Thread.sleep(esperaRandom.nextInt(300));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+            }
+        }
+        System.out.println("Cliente "+this.id + " no ha conseguido entrar.");
+
+    }
+}

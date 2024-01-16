@@ -1,0 +1,70 @@
+package barberos;
+import java.util.Random;
+
+public class Peluqueria {
+
+    private static final int NUM_BARBEROS = 5;
+    private static final int NUM_SILLAS = 10;
+
+    private static int sillasLibres = NUM_SILLAS;
+    private static int barberosLibres = 0;
+
+    public static void main(String[] args) throws InterruptedException {
+
+        // Creamos los barberos
+        for (int i = 0; i < NUM_BARBEROS; i++) {
+            new Thread(new Barbero()).start();
+        }
+
+        // Generamos clientes continuamente
+        while (true) {
+            new Thread(new Cliente()).start();
+        }
+    }
+
+    static class Barbero implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                while (sillasLibres == 0) {
+                    // No hay sillas libres, así que el barbero duerme
+                }
+
+                // Hay una silla libre, así que un cliente puede entrar
+                sillasLibres--;
+                barberosLibres++;
+
+                // El barbero está libre
+                System.out.println("Un barbero está libre");
+            }
+        }
+    }
+
+    static class Cliente implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                while (sillasLibres == 0 || barberosLibres == 0) {
+                    // No hay sillas libres o barberos libres, así que el cliente se marcha
+                    return;
+                }
+
+                // Hay una silla libre y un barbero libre, así que el cliente se sienta
+                sillasLibres--;
+                barberosLibres--;
+
+                // El cliente está sentado
+                System.out.println("Un cliente se sienta");
+
+                // El cliente espera a que un barbero le afeite
+                Thread.sleep(new Random().nextInt(1000));
+
+                // El cliente está afeitado y se marcha
+                sillasLibres++;
+                barberosLibres++;
+            }
+        }
+    }
+}

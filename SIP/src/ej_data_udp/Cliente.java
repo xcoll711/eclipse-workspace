@@ -1,0 +1,70 @@
+package ej_data_udp;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class Cliente {
+
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+
+		// Obtenemos la dirección del servidor
+		InetAddress direccionServidor = InetAddress.getByName("localhost");
+
+		DatagramSocket socket = new DatagramSocket();
+
+		// SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+		while(true) {
+
+			System.out.println("Ingresi el format, per exemple : dd-MM-yyyy HH:mm:ss. Deixa-ho buid per a escriure aquesta opció \n Escriu 'x' per sortir ");
+
+			
+			String f = sc.nextLine();
+
+			try {
+			SimpleDateFormat sdf ;
+			if(f.trim().equals("x")) {
+				break;
+			}
+			else if(f.isBlank()) {
+				sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			}else{
+				sdf = new SimpleDateFormat(f);
+			}
+		
+
+			Date fechaHoraActual = new Date();
+			String fechaHoraFormateada = sdf.format(fechaHoraActual);
+
+			// Creamos el datagrama con la petición
+			byte[] peticion = fechaHoraFormateada.getBytes();
+			DatagramPacket peticionDatagrama = new DatagramPacket(peticion, peticion.length, direccionServidor, 8100);
+
+			// Enviamos la petición al servidor
+			socket.send(peticionDatagrama);
+
+			// Recibimos la respuesta del servidor
+			byte[] respuesta = new byte[1024];
+			DatagramPacket respuestaDatagrama = new DatagramPacket(respuesta, respuesta.length);
+			socket.receive(respuestaDatagrama);
+
+			// Mostramos la respuesta
+			System.out.println("fecha_UDP> " + new String(respuestaDatagrama.getData(), 0, respuestaDatagrama.getLength()));
+			
+			}catch(Exception e) {
+				System.err.println("FORMAT INCORRECTE [dd-MM-yyyy HH:mm:ss]");
+
+			}
+		}
+		
+		System.out.println("Bon voyage");
+
+	}
+}
+

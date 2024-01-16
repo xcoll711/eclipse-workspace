@@ -1,0 +1,74 @@
+package u3e07AD;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Test307 {
+    public static void main(String[] args) {
+        // Datos de conexión para localhost
+        String urlConnection = "jdbc:mysql://localhost:3306/ad?allowMultiQueries=true";
+        String user = "root";
+        String pwd = "";
+
+        try (Connection c = DriverManager.getConnection(urlConnection, user, pwd)) {
+            // Crear la taula clients si no existeix
+            try (PreparedStatement sConsulta = c.prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS clients (dni VARCHAR(10) PRIMARY KEY, cognom VARCHAR(100), codiPostal VARCHAR(5))"
+            )) {
+                sConsulta.executeUpdate();
+            }
+
+            // Inserir els clients amb addBatch() i executeBatch()
+            try (PreparedStatement sInsercio = c.prepareStatement(
+                    "INSERT INTO clientes (dni, apellidos, cp) VALUES (?, ?, ?)"
+            )) {
+                // Afegir els elements a la taula amb addBatch()
+                sInsercio.setString(1, "12345678A");
+                sInsercio.setString(2, "Gómez");
+                sInsercio.setString(3, "08001");
+                sInsercio.addBatch();
+
+                sInsercio.setString(1, "87654321B");
+                sInsercio.setString(2, "Martínez");
+                sInsercio.setString(3, "08002");
+                sInsercio.addBatch();
+
+                sInsercio.setString(1, "23456789C");
+                sInsercio.setString(2, "García");
+                sInsercio.setString(3, "08003");
+                sInsercio.addBatch();
+
+                sInsercio.setString(1, "98765432D");
+                sInsercio.setString(2, "López");
+                sInsercio.setString(3, "08004");
+                sInsercio.addBatch();
+
+                // Executar el lot amb executeBatch()
+                int[] resultats = sInsercio.executeBatch();
+
+                // Comprovar els resultats (opcional)
+                for (int resultat : resultats) {
+                    System.out.println("Nombre de files afectades: " + resultat);
+                }
+            } catch (SQLException e) {
+                muestraErrorSQL(e);
+                // Si hi ha algun error, es pot realitzar un rollback
+                if (c != null) {
+                    c.rollback();
+                    System.err.println("Se hace ROLLBACK");
+                }
+            }
+
+        } catch (SQLException e) {
+            muestraErrorSQL(e);
+        }
+    }
+
+    private static void muestraErrorSQL(SQLException e) {
+        // Método para manejar errores SQL, puedes personalizarlo según tus necesidades.
+        e.printStackTrace();
+        e.getMessage();
+    }
+}

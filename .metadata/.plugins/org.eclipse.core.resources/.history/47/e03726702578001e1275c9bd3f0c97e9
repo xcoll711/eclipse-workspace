@@ -1,0 +1,29 @@
+package u2e10;
+
+class Consumidor extends Thread {
+    private Cola cola;
+    private int n;
+
+    public Consumidor(Cola c, int n) {
+        cola = c;
+        this.n = n;
+    }
+
+    public void run() {
+        String data;
+        while ((data = cola.get()) != null) {
+            System.out.println("Consumidor " + n + " consume --> " + data);
+            System.out.println("fgfghf");
+
+            // 0.1 sec de espera
+            try {
+                System.out.println("gdhgh");
+
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Consumidor " + n + " ha finalizado.");
+    }
+}

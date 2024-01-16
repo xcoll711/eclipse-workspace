@@ -1,0 +1,39 @@
+package u2e10;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+class Productor extends Thread {
+    private Cola cola;
+    private String nomArxiu;
+
+    public Productor(Cola c, String fileName) {
+        cola = c;
+        this.nomArxiu = fileName;
+    }
+
+    public void run() {
+        try (BufferedReader br = new BufferedReader(new FileReader(nomArxiu))) {
+        	
+            String linea;
+            
+            // Leer línea por línea del archivo
+            while ((linea = br.readLine()) != null) {
+            	
+                // Iterar sobre cada carácter de la línea y enviarlo a la cola
+                for (char caracter : linea.toCharArray()) {
+                	
+                    String charString = String.valueOf(caracter);
+                    cola.put(charString);
+                    System.out.println("Productor produce --> " + charString);
+                    // 0.1 sec de espera
+                    Thread.sleep(100);
+                }
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Productor ha finalizado.");
+    }
+}
