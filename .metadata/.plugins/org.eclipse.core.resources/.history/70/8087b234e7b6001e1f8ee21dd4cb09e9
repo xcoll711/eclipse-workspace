@@ -1,0 +1,9 @@
+package examentcpudp_xavi;
+
+public class Servidor {
+	public static void main(String[] args) {
+
+		int puerto = 6000;
+		ServerSocket servidor = new ServeSocket(puerto);
+	}
+}

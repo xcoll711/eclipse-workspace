@@ -1,0 +1,56 @@
+package examentcpudp_xavi;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Servidor {
+    public static void main(String[] args) {
+        int puerto = 6000;
+
+        try {
+            ServerSocket servidor = new ServerSocket(puerto);
+            Socket clienteConectado = servidor.accept();
+
+            DataInputStream flujoEntrada = new DataInputStream(clienteConectado.getInputStream());
+            DataOutputStream flujoSalida = new DataOutputStream(clienteConectado.getOutputStream());
+
+            // Recibiendo la primera cadena del cliente
+            String cadena1 = flujoEntrada.readUTF();
+            System.out.println("Cliente dice: " + cadena1);
+
+            // Verificando la primera cadena
+            if (cadena1.equals("hola")) {
+                // Respondiendo a la primera cadena
+                flujoSalida.writeUTF("hola");
+
+                // Recibiendo la segunda cadena del cliente
+                String cadena2 = flujoEntrada.readUTF();
+                System.out.println("Cliente dice: " + cadena2);
+
+                // Verificando la segunda cadena
+                if (cadena2.equals("mundo")) {
+                    // Respondiendo a la segunda cadena
+                    flujoSalida.writeUTF("mon");
+                } else {
+                    // Si la segunda cadena no es "mundo", enviar un mensaje de error
+                    flujoSalida.writeUTF("Error: Segunda cadena incorrecta");
+                }
+            } else {
+                // Si la primera cadena no es "hola", enviar un mensaje de error
+                flujoSalida.writeUTF("Error: Primera cadena incorrecta");
+            }
+
+            // Cerrando conexiones
+            flujoEntrada.close();
+            flujoSalida.close();
+            clienteConectado.close();
+            servidor.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

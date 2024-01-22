@@ -1,0 +1,55 @@
+package examentcpudp_xavi;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Servidor {
+    public static void main(String[] args) {
+        int puerto = 6000;
+        try {
+            ServerSocket servidor = new ServerSocket(puerto);
+            Socket clienteConectado = servidor.accept();
+
+            DataInputStream flujoEntrada = new DataInputStream(clienteConectado.getInputStream());
+            DataOutputStream flujoSalida = new DataOutputStream(clienteConectado.getOutputStream());
+
+            // Read the first string from the client
+            String primeraCadena = flujoEntrada.readUTF();
+
+            if (primeraCadena.equals("hola")) {
+                // If the first string is "hola", expect "mundo" next
+                String segundaCadena = flujoEntrada.readUTF();
+                if (segundaCadena.equals("mundo")) {
+                    // Respond with "hola,mon"
+                    flujoSalida.writeUTF("hola,mon");
+                } else {
+                    // Handle unexpected input
+                    flujoSalida.writeUTF("Error: Expected 'mundo' after 'hola'");
+                }
+            } else if (primeraCadena.equals("mon")) {
+                // If the first string is "mon", expect "hola" next
+                String segundaCadena = flujoEntrada.readUTF();
+                if (segundaCadena.equals("hola")) {
+                    // Respond with "hola,Mon"
+                    flujoSalida.writeUTF("hola,Mon");
+                } else {
+                    // Handle unexpected input
+                    flujoSalida.writeUTF("Error: Expected 'hola' after 'mon'");
+                }
+            } else {
+                // Handle unexpected input
+                flujoSalida.writeUTF("Error: Expected 'hola' or 'mon' as the first input");
+            }
+
+            // Close the socket and streams
+            clienteConectado.close();
+            servidor.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

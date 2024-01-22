@@ -332,6 +332,13 @@ public class ViewClient {
 			int halfWidth = size.width / 2;
 
 			btnPlayPause = new JButton("");
+			btnPlayPause.setBorder(null);
+			btnPlayPause.setContentAreaFilled(false);
+			btnPlayPause.setFocusTraversalKeysEnabled(false);
+			btnPlayPause.setFocusable(false);
+			btnPlayPause.setFocusPainted(false);
+			btnPlayPause.setRequestFocusEnabled(false);
+			btnPlayPause.setRolloverEnabled(false);
 			sl_panelControlsMid.putConstraint(SpringLayout.NORTH, btnPlayPause, 0, SpringLayout.NORTH, panelControlsMid);
 			sl_panelControlsMid.putConstraint(SpringLayout.WEST, btnPlayPause, halfWidth, SpringLayout.WEST, panelControlsMid);
 			btnPlayPause.setIcon(new ImageIcon(ViewClient.class.getResource("/view/img/playpause1.png")));
@@ -438,7 +445,7 @@ public class ViewClient {
 
 			btnDevice = new JButton("");
 			sl_panelControlsMid.putConstraint(SpringLayout.NORTH, btnDevice, 10, SpringLayout.NORTH, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.SOUTH, btnDevice, 41, SpringLayout.NORTH, panelControlsMid);
+			sl_panelControlsMid.putConstraint(SpringLayout.WEST,  btnDevice, -30, SpringLayout.WEST, btnVolume);
 			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnDevice, 0, SpringLayout.WEST, btnVolume);
 			btnDevice.setIcon(new ImageIcon(ViewClient.class.getResource("/view/img/device1.png")));
 			btnDevice.setFocusTraversalKeysEnabled(false);
@@ -449,10 +456,9 @@ public class ViewClient {
 			panelControlsMid.add(btnDevice);
 
 			btnQueue = new JButton("");
-			sl_panelControlsMid.putConstraint(SpringLayout.NORTH, btnQueue, 0, SpringLayout.NORTH, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.SOUTH, btnQueue, -25, SpringLayout.SOUTH, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnQueue, -175, SpringLayout.EAST, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.WEST, btnDevice, 0, SpringLayout.EAST, btnQueue);
+			sl_panelControlsMid.putConstraint(SpringLayout.NORTH, btnQueue, 10, SpringLayout.NORTH, panelControlsMid);
+			sl_panelControlsMid.putConstraint(SpringLayout.WEST,  btnQueue, -30, SpringLayout.WEST, btnDevice);
+			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnQueue, 0, SpringLayout.WEST, btnDevice);
 			btnQueue.setIcon(new ImageIcon(ViewClient.class.getResource("/view/img/queue1.png")));
 			btnQueue.setFocusTraversalKeysEnabled(false);
 			btnQueue.setFocusPainted(false);
@@ -462,10 +468,9 @@ public class ViewClient {
 			panelControlsMid.add(btnQueue);
 
 			btnLyrics = new JButton("");
-			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnLyrics, -205, SpringLayout.EAST, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.WEST, btnQueue, 0, SpringLayout.EAST, btnLyrics);
 			sl_panelControlsMid.putConstraint(SpringLayout.NORTH, btnLyrics, 10, SpringLayout.NORTH, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.SOUTH, btnLyrics, 41, SpringLayout.NORTH, panelControlsMid);
+			sl_panelControlsMid.putConstraint(SpringLayout.WEST,  btnLyrics, -30, SpringLayout.WEST, btnQueue);
+			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnLyrics, 0, SpringLayout.WEST, btnQueue);
 			btnLyrics.setIcon(new ImageIcon(ViewClient.class.getResource("/view/img/lyrics1.png")));
 			btnLyrics.setFocusTraversalKeysEnabled(false);
 			btnLyrics.setFocusPainted(false);
@@ -475,10 +480,9 @@ public class ViewClient {
 			panelControlsMid.add(btnLyrics);
 
 			btnNowPlaying = new JButton("");
-			sl_panelControlsMid.putConstraint(SpringLayout.WEST, btnLyrics, 0, SpringLayout.EAST, btnNowPlaying);
-			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnNowPlaying, -235, SpringLayout.EAST, panelControlsMid);
 			sl_panelControlsMid.putConstraint(SpringLayout.NORTH, btnNowPlaying, 10, SpringLayout.NORTH, panelControlsMid);
-			sl_panelControlsMid.putConstraint(SpringLayout.WEST, btnNowPlaying, 378, SpringLayout.EAST, btnLoop);
+			sl_panelControlsMid.putConstraint(SpringLayout.WEST,  btnNowPlaying, -30, SpringLayout.WEST, btnLyrics);
+			sl_panelControlsMid.putConstraint(SpringLayout.EAST, btnNowPlaying, 0, SpringLayout.WEST, btnLyrics);
 			btnNowPlaying.setIcon(new ImageIcon(ViewClient.class.getResource("/view/img/nowplaying1.png")));
 			btnNowPlaying.setFocusTraversalKeysEnabled(false);
 			btnNowPlaying.setFocusPainted(false);

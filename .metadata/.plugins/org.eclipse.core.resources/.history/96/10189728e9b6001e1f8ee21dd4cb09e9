@@ -1,0 +1,44 @@
+package examentcpudp_xavi;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class Cliente {
+    public static void main(String[] args) {
+        String servidorIP = "localhost";
+        int puerto = 6000;
+
+        try {
+            Socket socketCliente = new Socket(servidorIP, puerto);
+            DataInputStream flujoEntrada = new DataInputStream(socketCliente.getInputStream());
+            DataOutputStream flujoSalida = new DataOutputStream(socketCliente.getOutputStream());
+
+
+            
+            flujoSalida.writeUTF("hola");
+
+            // Recibiendo la respuesta del servidor para la primera cadena
+            String respuesta1 = flujoEntrada.readUTF();
+            System.out.println("Servidor responde: " + respuesta1);
+
+            // Enviando la segunda cadena al servidor
+            flujoSalida.writeUTF("mundo");
+
+            // Recibiendo la respuesta del servidor para la segunda cadena
+            String respuesta2 = flujoEntrada.readUTF();
+            System.out.println("Servidor responde: " + respuesta2);
+
+            // Cerrando conexiones
+            flujoEntrada.close();
+            flujoSalida.close();
+            socketCliente.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+

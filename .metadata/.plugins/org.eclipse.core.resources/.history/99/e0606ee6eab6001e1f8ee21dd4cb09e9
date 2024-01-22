@@ -1,0 +1,43 @@
+package examentcpudp_xavi;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Cliente {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String host = "localhost";
+        int puerto = 6000;
+
+        try {
+            Socket socketCliente = new Socket(host, puerto);
+            DataInputStream flujoEntrada = new DataInputStream(socketCliente.getInputStream());
+            DataOutputStream flujoSalida = new DataOutputStream(socketCliente.getOutputStream());
+
+            // Leer la cadena desde la entrada estándar
+            System.out.print("Ingrese una cadena: ");
+            String cadenaCliente = sc.nextLine();
+
+            // Enviar la cadena al servidor
+            flujoSalida.writeUTF(cadenaCliente);
+
+            // Recibir y mostrar la respuesta del servidor
+            String respuestaServidor = flujoEntrada.readUTF();
+            
+            if(respuestaServidor.equals(null))
+            System.out.println("Servidor responde: " + respuestaServidor);
+
+            // Cerrar conexiones
+            flujoEntrada.close();
+            flujoSalida.close();
+            socketCliente.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

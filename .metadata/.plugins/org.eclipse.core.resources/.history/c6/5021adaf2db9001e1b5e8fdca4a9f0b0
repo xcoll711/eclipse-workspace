@@ -1,0 +1,43 @@
+package examenudp_xavi;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.Scanner;
+
+public class Client {
+
+    public static void main(String[] args) throws IOException {
+        @SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+        String host = "localhost";
+        int puerto = 6000;
+
+        System.out.println("PROGRAMA CLIENTE INICIADO....");
+        DatagramSocket socket = new DatagramSocket();
+
+        while (true) {
+            System.out.print("ID Alumno (o '*' para salir): [IDs disponibles => 0 - 9] ");
+            String id = sc.nextLine();
+
+            byte[] buffer = id.getBytes();
+            DatagramPacket in = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(host), puerto);
+            socket.send(in);
+
+            if (id.equals("*")) {
+            	System.out.println("Cerrando");
+                break;
+            }
+
+            buffer = new byte[1024];
+            DatagramPacket out = new DatagramPacket(buffer, buffer.length);
+            socket.receive(out);
+
+            String response = new String(out.getData(), 0, out.getLength());
+            System.out.println("Recibiendo del SERVIDOR:\n\t" + response);
+        }
+
+        socket.close();
+    }
+}

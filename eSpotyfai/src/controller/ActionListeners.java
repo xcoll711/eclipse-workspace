@@ -202,6 +202,8 @@ public class ActionListeners {
 		ViewClient.btnPlayPause.addActionListener(e -> {
 
 			System.out.println("Button Play Pause pressed");
+			
+			Functions.playPause();
 
 		});
 
@@ -219,7 +221,48 @@ public class ActionListeners {
 
 
 		/* --- */
+		/*- RIGHT SIDE SONG WINDOW CONTROLS-*/
+		ViewClient.btnFullScrSong.addActionListener(e -> {
 
+			System.out.println("Button btnFullScrSong pressed");
+
+		});
+		
+		/*ViewClient.pbVolume.addActionListener(e -> {
+
+			System.out.println("pbVolume pressed");
+
+		});*/
+		
+		ViewClient.btnVolume.addActionListener(e -> {
+
+			System.out.println("Button btnVolume pressed");
+
+		});
+		
+		ViewClient.btnDevice.addActionListener(e -> {
+
+			System.out.println("Button btnDevice pressed");
+
+		});
+		
+		ViewClient.btnQueue.addActionListener(e -> {
+
+			System.out.println("Button btnQueue pressed");
+
+		});
+		
+		ViewClient.btnLyrics.addActionListener(e -> {
+
+			System.out.println("Button btnLyrics pressed");
+
+		});
+
+		ViewClient.btnNowPlaying.addActionListener(e -> {
+
+			System.out.println("Button btnNowPlaying pressed");
+
+		});
 
 	}
 
