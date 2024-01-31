@@ -121,7 +121,7 @@ public class ViewLogin {
 		btnContinuar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnContinuar.setOpaque(true);
 		// Rounded Button
-		btnContinuar.setBorder(new controller.RoundBorder(Color.BLACK));
+		btnContinuar.setBorder(new controller.RoundedButton(Color.BLACK));
 		frameLogin.getContentPane().add(btnContinuar);
 
 		//Button to go to the register frame.

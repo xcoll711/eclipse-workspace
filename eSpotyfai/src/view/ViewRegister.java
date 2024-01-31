@@ -122,7 +122,7 @@ public class ViewRegister {
 		btnCrearCompte.setForeground(new Color(255, 255, 255)); // White text
 		btnCrearCompte.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCrearCompte.setOpaque(true);
-		btnCrearCompte.setBorder(new controller.RoundBorder(Color.BLACK));
+		btnCrearCompte.setBorder(new controller.RoundedButton(Color.BLACK));
 		frameRegister.getContentPane().add(btnCrearCompte);
 
 		JLabel lblContraRep = new JLabel("Repeteix la contrassenya");

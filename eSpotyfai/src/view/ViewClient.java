@@ -12,6 +12,9 @@ import javax.swing.*;
 import controller.RoundedPanel;
 import controller.RoundedProgressBar;
 import model.Functions;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 
 public class ViewClient {
@@ -28,29 +31,34 @@ public class ViewClient {
 	public static JButton btnVentana;
 	public static JButton btnCerrar;
 
-	public static JLabel lblInici;
-	public static JLabel lblCerca;
-	public static JLabel lblBiblioteca;
+	public static JLabel lblInici = new JLabel("");
+	public static JLabel lblCerca = new JLabel("");
+	public static JLabel lblBiblioteca = new JLabel("");
 
-	public static JButton btnRepro;
-	public static JButton btnSkipB;
-	public static JButton btnPlayPause;
-	public static JButton btnSkipF;
-	public static JButton btnLoop;
-
+	public static JButton btnRepro = new JButton("");
+	public static JButton btnSkipB = new JButton("");
+	public static JButton btnPlayPause = new JButton("");;
+	public static JButton btnSkipF = new JButton("");
+	public static JButton btnLoop = new JButton("");
+	/*MID*/
 	public static JLabel lblUsername;
-
-	public static JButton btnFullScrSong;
+	public static JPanel panelMusica;
+	/*BOT*/
+	public static JButton btnFullScrSong = new JButton("");
 	public static RoundedProgressBar pbVolume;
-	public static JButton btnVolume;
-	public static JButton btnDevice;
-	public static JButton btnQueue;
-	public static JButton btnLyrics;
-	public static JButton btnNowPlaying;
+	public static JButton btnVolume = new JButton("");
+	public static JButton btnDevice = new JButton("");
+	public static JButton btnQueue = new JButton("");
+	public static JButton btnLyrics = new JButton("");
+	public static JButton btnNowPlaying = new JButton("");
 
 	/***/
 	public final static int ARCWIDHT = 15; 
 	public final static int ARCHEIGHT = 15;
+
+
+
+	public static JPanel panel_1;
 
 
 	/**
@@ -152,12 +160,15 @@ public class ViewClient {
 			/**
 			 * MID
 			 */
+
 			JPanel panelMid = new JPanel();
 			panelMid.setPreferredSize(new Dimension(430, 10));
 			panelMid.setBackground(new Color(0, 0, 0));
 			frameClient.getContentPane().add(panelMid, BorderLayout.CENTER);
 			SpringLayout sl_panelMid = new SpringLayout();
 			panelMid.setLayout(sl_panelMid);
+
+
 
 			panel = new RoundedPanel(20);
 			sl_panelMid.putConstraint(SpringLayout.NORTH, panel, 10, SpringLayout.NORTH, panelMid);
@@ -171,7 +182,7 @@ public class ViewClient {
 			// Create and add your panels to the CardLayout
 			JPanel panelInici = new RoundedPanel(20);// Replace this with your actual panel for "Inici"
 			panelInici.setForeground(new Color(16, 16, 16));
-			panelInici.setBackground(new Color(18, 17, 16));
+			panelInici.setBackground(new Color(0, 0, 0));
 			panel.add(panelInici, "Inici");
 			SpringLayout sl_panelInici = new SpringLayout();
 			panelInici.setLayout(sl_panelInici);
@@ -181,7 +192,7 @@ public class ViewClient {
 			sl_panelInici.putConstraint(SpringLayout.WEST, panelMenuMusica, 0, SpringLayout.WEST, panelInici);
 			sl_panelInici.putConstraint(SpringLayout.SOUTH, panelMenuMusica, 50, SpringLayout.NORTH, panelInici);
 			sl_panelInici.putConstraint(SpringLayout.EAST, panelMenuMusica, 0, SpringLayout.EAST, panelInici);
-			panelMenuMusica.setBackground(null);
+			panelMenuMusica.setBackground(new Color(12, 12, 12));
 			panelInici.add(panelMenuMusica);
 
 
@@ -193,7 +204,6 @@ public class ViewClient {
 			//   panel_imagen.setBackground(null);
 			panelUserIMG.setPreferredSize(new Dimension(30, 30));
 			sl_panelMenuMusica.putConstraint(SpringLayout.NORTH, panelUserIMG, 10, SpringLayout.NORTH, panelMenuMusica);
-
 			sl_panelMenuMusica.putConstraint(SpringLayout.SOUTH, panelUserIMG, 40, SpringLayout.NORTH, panelMenuMusica);
 			sl_panelMenuMusica.putConstraint(SpringLayout.EAST, panelUserIMG, -10, SpringLayout.EAST, panelMenuMusica);
 			panelMenuMusica.add(panelUserIMG);
@@ -207,44 +217,49 @@ public class ViewClient {
 			lblUsername.setForeground(new Color(255, 255, 255));
 			panelMenuMusica.add(lblUsername);
 
+			JScrollPane scrollPane = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			
+			sl_panelInici.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.SOUTH, panelMenuMusica);
+			scrollPane.setBorder(null);
+			sl_panelInici.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, panelInici);
+			sl_panelInici.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, panelInici);
+			sl_panelInici.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, panelMenuMusica);
+			panelInici.add(scrollPane);
 
-			/*
+
+			/**********************************
 			 * 
 			 */
 
-			// Añadir los paneles al contenedor
-			/*Functions.agregarPanel(panelMusica);
-				Functions.agregarPanel(panelMusica);
-				Functions.agregarPanel(panelMusica);
-				Functions.agregarPanel(panelMusica);
-				Functions.agregarPanel(panelMusica);
-				Functions.agregarPanel(panelMusica);
-				Functions.agregarPanel(panelMusica);*/
+			panelMusica = new JPanel();
+			panelMusica.setBorder(null);
+			panelMusica.setBackground(new Color(12, 12, 12));
+			scrollPane.setViewportView(panelMusica);
 
-			JPanel panelMusica = new JPanel();
-			panelMusica.setLayout(new BoxLayout(panelMusica, BoxLayout.X_AXIS)); // Cambio a layout horizontal
-			panelMusica.setBackground(Color.BLACK);
+			panelMusica.setLayout(new BoxLayout(panelMusica, BoxLayout.Y_AXIS));
+			// Adds playlists
 
 
-			// Crear JScrollPane y añadir el panelMusica
-			JScrollPane scrollPane = new JScrollPane(panelMusica);
-			sl_panelInici.putConstraint(SpringLayout.NORTH, scrollPane, 5, SpringLayout.SOUTH, panelMenuMusica);
-			scrollPane.setBorder(null);
-			scrollPane.setOpaque(false);
-			scrollPane.setRequestFocusEnabled(false);
-			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-			scrollPane.setAutoscrolls(true);
-			//scrollPane.setBounds(new Rectangle(0, 0, 1000, 1000));
-			scrollPane.setBackground(Color.BLACK);
-			panelInici.add(scrollPane);
+			Functions.addPlaylistRow(panelMusica);
 
+			Functions.addPlaylistRow(panelMusica);
+			Functions.addPlaylistRow(panelMusica);
+
+
+		
+
+
+			/*
+			 *  CERCA SEARCH
+			 */
 
 
 			JPanel panelCerca = new RoundedPanel(20);
 			panelCerca.setBackground(Color.GREEN);
 			panel.add(panelCerca, "Cerca");
 
-			/**
+			/***********************************************************************************
+			 **********************************************************************************
 			 * WEST
 			 */
 			JPanel panelWest = new JPanel();
@@ -531,7 +546,4 @@ public class ViewClient {
 
 		return new ImageIcon(bufferedImage);
 	}
-
-
-
 }

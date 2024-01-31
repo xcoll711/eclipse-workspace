@@ -1,11 +1,18 @@
 package model;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -14,16 +21,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import controller.RoundedImageIcon;
+import controller.RoundedLabel;
 import controller.RoundedPanel;
 import model.ServerFunctions;
 import view.ViewClient;
@@ -399,22 +414,148 @@ public class Functions {
 		ViewLogin.frameLogin.setVisible(true);
 	}
 
-	public static void agregarPanel(JPanel panel) {
-
-		panel.add(Box.createHorizontalStrut(5)); //left margin 
-
-
-
-		RoundedPanel rp = new RoundedPanel(25);
-		rp.setPreferredSize(new Dimension(206, 288));
-		rp.setBackground(new Color(24, 24, 24));
-		panel.add(rp);
+	public static void addPlaylistRow(JPanel parentPanel) {
+		// Add vertical strut above the title and showAll button
+		parentPanel.add(Box.createVerticalStrut(10));
 
 
-		//40,40,40
-		panel.add(Box.createHorizontalStrut(20)); //right margin 
+		// Crear un panel con GridBagLayout
+		JPanel topPanel = new JPanel(new GridBagLayout());
+		topPanel.setBackground(null);
+
+		// Crear un objeto GridBagConstraints
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 20, 0, 20); // Espacios a 20 del lado izquierdo y derecho
+
+		// Agregar un espacio en la parte superior
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		topPanel.add(Box.createVerticalStrut(10), gbc);
+
+		// Crear el JLabel para el playlistTitle
+		JLabel playlistTitle = new JLabel("Nombre");
+		playlistTitle.setFont(new Font("Arial", Font.BOLD, 18));
+		playlistTitle.setForeground(Color.WHITE);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		topPanel.add(playlistTitle, gbc);
+
+		// Crear el JButton para showAll
+		JButton showAll = new JButton("Show All");
+		showAll.setFont(new Font("Arial", Font.ROMAN_BASELINE, 14));
+		showAll.setForeground(Color.LIGHT_GRAY);
+		showAll.setBackground(null);
+		showAll.setBorder(null);
+		showAll.setFocusable(false);
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.EAST;
+		topPanel.add(showAll, gbc);
+
+		// Agregar un espacio en la parte inferior del panel superior
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridwidth = 3;
+		gbc.anchor = GridBagConstraints.WEST;
+		topPanel.add(Box.createVerticalStrut(15), gbc);
+
+		// Agregar el panel superior al panel principal
+		parentPanel.add(topPanel);
+
+		// Add vertical strut below the title and showAll button
+		parentPanel.add(Box.createVerticalStrut(15));
+
+		// Create the playlist row
+		JPanel playlistRow = new JPanel();
+		playlistRow.setLayout(new BoxLayout(playlistRow, BoxLayout.X_AXIS));
+		playlistRow.setBackground(Color.BLACK);
+		playlistRow.setBorder(null);
+
+		// Add songs to the playlist
+		Functions.addPlaylist(playlistRow, "", "Ave Maria", "David Bisbal");
+		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
+		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
+		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
+		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
+		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
+
+		// Set size preferences for playlistRow
+		playlistRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, playlistRow.getPreferredSize().height));
+		playlistRow.setPreferredSize(new Dimension(playlistRow.getPreferredSize().width, playlistRow.getPreferredSize().height));
+
+		// Create and configure the scroll pane
+		JScrollPane scrollPane = new JScrollPane(playlistRow, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, scrollPane.getPreferredSize().height));
+		scrollPane.setBorder(null);
+
+		// Add the scroll pane to the parent panel
+		parentPanel.add(scrollPane);
+
+		// Add vertical strut below the playlist
+		parentPanel.add(Box.createVerticalStrut(25));
+
 
 	}
+
+	public static void addPlaylist(JPanel panel, String icon, String name, String artist) {
+
+		panel.add(Box.createHorizontalStrut(5)); // left margin 
+
+		RoundedPanel rp = new RoundedPanel(25);
+		rp.setSize(190, 270);
+		rp.setBackground(new Color(28, 28, 28));
+		rp.setLayout(null);
+
+		panel.add(rp);
+
+		RoundedPanel image = new RoundedPanel(25);
+		image.setBounds(20, 24, 148, 137);
+		image.setLayout(new BorderLayout(0, 0));
+		rp.add(image);
+
+		String icon1 = "ruta/de/tu/imagen.png";  // Reemplaza con la ruta correcta de tu imagen
+
+		if (icon1 != null) {
+		    JLabel lblIMG = new JLabel(new ImageIcon(icon1));
+		    lblIMG.setHorizontalAlignment(SwingConstants.CENTER);
+		    lblIMG.setVerticalAlignment(SwingConstants.CENTER);
+
+		    // Aplica bordes y transparencia al JLabel
+		    lblIMG.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		    lblIMG.setOpaque(false);
+
+		    // Añade el JLabel al RoundedPanel
+		    image.add(lblIMG, BorderLayout.CENTER);
+		} else {
+		    System.err.println("No se pudo encontrar la imagen: " + icon1);
+		}
+
+		JLabel lblPlaylistName = new JLabel(name);
+		lblPlaylistName.setForeground(new Color(255, 255, 255));
+		lblPlaylistName.setBounds(20, 175, 146, 22);
+		lblPlaylistName.setFont(new Font("Dialog", Font.BOLD, 24));
+		rp.add(lblPlaylistName);
+
+		JLabel lblPlaylistArtist = new JLabel(artist);
+		lblPlaylistArtist.setVerticalAlignment(SwingConstants.TOP);
+		lblPlaylistArtist.setForeground(new Color(140, 140, 140));
+		lblPlaylistArtist.setBounds(20, 208, 148, 51);
+		lblPlaylistArtist.setFont(new Font("Dialog", Font.BOLD, 14));
+		rp.add(lblPlaylistArtist);
+
+		panel.add(Box.createHorizontalStrut(20)); // right margin 
+
+		// Set the size directly when adding the playlist panel
+		rp.setMaximumSize(new Dimension(190, 270));
+		rp.setMinimumSize(new Dimension(190, 270));
+
+	}
+
+
+
+
 
 
 	/*---*/
@@ -431,8 +572,8 @@ public class Functions {
 
 		}
 
-		
-		
+
+
 	}
 
 

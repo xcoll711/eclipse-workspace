@@ -25,7 +25,7 @@ public class RoundedPanel extends JPanel {
 
     @Override
     protected void paintBorder(Graphics g) {
-        g.setColor(getForeground());
         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, radius, radius);
+        
     }
 }

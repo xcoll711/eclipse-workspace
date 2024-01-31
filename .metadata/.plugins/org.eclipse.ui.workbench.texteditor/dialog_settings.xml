@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="panelMusica1"/>
+		<item key="selection" value="enterFullScreenMode"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="panelMusica1"/>
-			<item value="panelMusica"/>
-			<item value="agregar"/>
-			<item value="createHorizontalStrut"/>
-			<item value="agregarPanel"/>
-			<item value="w_fullscreen"/>
-			<item value="img/"/>
-			<item value="&quot;img/"/>
+			<item value="enterFullScreenMode"/>
+			<item value="fullscreen"/>
+			<item value="icon"/>
+			<item value="* mid"/>
+			<item value="*mid"/>
+			<item value="mid"/>
+			<item value="MID"/>
+			<item value="lblInici"/>
 			<item value="scrollPane"/>
-			<item value="scollPane"/>
-			<item value="scollpane"/>
-			<item value="&quot;/view/"/>
-			<item value="panelControlsMid.setLayout(new net.miginfocom.swing.MigLayout());"/>
-			<item value="frameClient"/>
-			<item value="frameClient.setUndecorated(true)"/>
+			<item value="panelInici"/>
+			<item value="panelinici"/>
+			<item value="panelMusica"/>
+			<item value="addPlay"/>
+			<item value="panel"/>
+			<item value="contra"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="panelMusica1"/>
 			<item value="&quot;/view/img/"/>
-			<item value=""/>
 			<item value="espotyfaiXCV"/>
 			<item value="IG"/>
 			<item value="inflant"/>
@@ -43,11 +43,11 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="196"/>
-		<item key="DIALOG_Y_ORIGIN" value="364"/>
-		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_X_ORIGIN" value="455"/>
+		<item key="DIALOG_Y_ORIGIN" value="642"/>
+		<item key="DIALOG_WIDTH" value="350"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
-		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="724"/>

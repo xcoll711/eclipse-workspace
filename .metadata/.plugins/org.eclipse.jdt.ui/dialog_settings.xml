@@ -3,7 +3,7 @@
 	<item key="org.eclipse.jdt.ui.last.selected.jre.kind2" value="2"/>
 	<item key="org.eclipse.jdt.ui.last.selected.execution.enviroment" value="JavaSE-17"/>
 	<item key="delegateUpdating" value="false"/>
-	<item key="org.eclipse.jdt.ui.lastextjar" value="C:\Users\ciclesgs.EAAULA211W-024\Documents\commons-net-3.10.0"/>
+	<item key="org.eclipse.jdt.ui.lastextjar" value="C:\Users\ciclesgs.EAAULA211W-024\Downloads"/>
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
 		<item key="group_libraries" value="true"/>
 		<item key="layout" value="2"/>
@@ -175,5 +175,8 @@
 		<item key="DeclareAsStatic" value="false"/>
 		<item key="DeclareAsFinal" value="true"/>
 		<item key="VisibilityControl" value="1"/>
+	</section>
+	<section name="NewRecordWizardPage">
+		<item key="create_unimplemented" value="false"/>
 	</section>
 </section>
