@@ -1,39 +1,56 @@
 package controller;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 
-public class RoundedImageIcon extends ImageIcon {
+public class RoundedImageIcon implements Icon {
 
-    private int cornerRadius;
+    private ImageIcon imageIcon;
+    private int width;
+    private int height;
 
-    public RoundedImageIcon(String filename, int cornerRadius) {
-        super(filename);
-        this.cornerRadius = cornerRadius;
+    public RoundedImageIcon(ImageIcon imageIcon, int width, int height) {
+        this.imageIcon = imageIcon;
+        this.width = width;
+        this.height = height;
     }
 
-    public RoundedImageIcon(URL resource , int cornerRadius) {
-    	   super(resource);
-           this.cornerRadius = cornerRadius;
-           }
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
 
-	@Override
-    public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-        int width = getIconWidth();
-        int height = getIconHeight();
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = image.createGraphics();
+        Image roundedImage = createRoundedImage(imageIcon.getImage(), width, height);
 
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(0, 0, width, height, cornerRadius, cornerRadius);
 
-        g2d.clip(roundedRectangle);
-        super.paintIcon(c, g2d, 0, 0);
+        g.drawImage(roundedImage, x, y, c);
+    }
+
+    @Override
+    public int getIconWidth() {
+        return width;
+    }
+
+    @Override
+    public int getIconHeight() {
+        return height;
+    }
+
+    private Image createRoundedImage(Image image, int width, int height) {
+        BufferedImage roundedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = roundedImage.createGraphics();
+
+        // Crear una forma redondeada para los bordes
+        RoundRectangle2D roundedRect = new RoundRectangle2D.Double(0, 0, width, height, 25, 25);
+
+        // Configurar el recorte para que solo se dibuje dentro de la forma redondeada
+        g2d.setClip(roundedRect);
+
+        // Dibujar la imagen original
+        g2d.drawImage(image, 0, 0, width, height, null);
+
+        // Liberar los recursos de Graphics2D
         g2d.dispose();
 
-        g.drawImage(image, x, y, c);
+        return roundedImage;
     }
 }

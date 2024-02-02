@@ -241,7 +241,7 @@ public class ViewClient {
 
 
 			Functions.addPlaylistRow(panelMusica);
-
+			Functions.addPlaylistRow(panelMusica);
 			Functions.addPlaylistRow(panelMusica);
 			Functions.addPlaylistRow(panelMusica);
 

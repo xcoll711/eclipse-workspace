@@ -3,6 +3,7 @@ package model;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Font;
@@ -317,8 +318,10 @@ public class Functions {
 
 		if (ventanaCompleta) {
 			exitFullScreenMode(frame);
+
 		} else {
 			enterFullScreenMode(frame);
+
 		}
 	}
 
@@ -473,13 +476,15 @@ public class Functions {
 		playlistRow.setBackground(Color.BLACK);
 		playlistRow.setBorder(null);
 
-		// Add songs to the playlist
-		Functions.addPlaylist(playlistRow, "", "Ave Maria", "David Bisbal");
-		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
-		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
-		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
-		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
-		Functions.addPlaylist(playlistRow, "/view/songImages/1.png", "Ave Maria", "David Bisbal");
+
+		//Functions.addPlaylist(playlistRow, "src/view/songImages/1.png", "Ave Maria", "David Bisbal");
+		
+		//Functions.addPlaylist(playlistRow, new Playlist());		
+		Functions.addPlaylistOLD(playlistRow, new ImageIcon("src/view/songImages/1.png"), "Ave Maria", "David Bisbal");
+		Functions.addPlaylistOLD(playlistRow, new ImageIcon("src/view/songImages/1.png"), "Ave Maria", "David Bisbal");
+		Functions.addPlaylistOLD(playlistRow, new ImageIcon("src/view/songImages/1.png"), "Ave Maria", "David Bisbal");		
+		Functions.addPlaylistOLD(playlistRow, new ImageIcon("src/view/songImages/1.png"), "Ave Maria", "David Bisbal");
+		Functions.addPlaylistOLD(playlistRow, new ImageIcon("src/view/songImages/1.png"), "Ave Maria", "David Bisbal");
 
 		// Set size preferences for playlistRow
 		playlistRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, playlistRow.getPreferredSize().height));
@@ -498,8 +503,9 @@ public class Functions {
 
 
 	}
+	
+	public static void addPlaylist(JPanel panel, ImageIcon icon, String name, String artist) {
 
-	public static void addPlaylist(JPanel panel, String icon, String name, String artist) {
 
 		panel.add(Box.createHorizontalStrut(5)); // left margin 
 
@@ -513,24 +519,20 @@ public class Functions {
 		RoundedPanel image = new RoundedPanel(25);
 		image.setBounds(20, 24, 148, 137);
 		image.setLayout(new BorderLayout(0, 0));
+		image.setBackground(new Color(28, 28, 28));
+
 		rp.add(image);
 
-		String icon1 = "ruta/de/tu/imagen.png";  // Reemplaza con la ruta correcta de tu imagen
+		// Utiliza RoundedImageIcon en lugar de ImageIcon para redondear la imagen
+		JLabel lblIMG = new JLabel(new RoundedImageIcon(icon,150,140));
+		lblIMG.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIMG.setVerticalAlignment(SwingConstants.CENTER);
 
-		if (icon1 != null) {
-		    JLabel lblIMG = new JLabel(new ImageIcon(icon1));
-		    lblIMG.setHorizontalAlignment(SwingConstants.CENTER);
-		    lblIMG.setVerticalAlignment(SwingConstants.CENTER);
+		// Aplica bordes y transparencia al JLabel
+		lblIMG.setOpaque(false);
 
-		    // Aplica bordes y transparencia al JLabel
-		    lblIMG.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		    lblIMG.setOpaque(false);
-
-		    // Añade el JLabel al RoundedPanel
-		    image.add(lblIMG, BorderLayout.CENTER);
-		} else {
-		    System.err.println("No se pudo encontrar la imagen: " + icon1);
-		}
+		// Añade el JLabel al RoundedPanel
+		image.add(lblIMG);
 
 		JLabel lblPlaylistName = new JLabel(name);
 		lblPlaylistName.setForeground(new Color(255, 255, 255));
@@ -545,6 +547,61 @@ public class Functions {
 		lblPlaylistArtist.setFont(new Font("Dialog", Font.BOLD, 14));
 		rp.add(lblPlaylistArtist);
 
+
+
+		panel.add(Box.createHorizontalStrut(20)); // right margin 
+
+		// Set the size directly when adding the playlist panel
+		rp.setMaximumSize(new Dimension(190, 270));
+		rp.setMinimumSize(new Dimension(190, 270));
+
+	}
+
+	public static void addPlaylistOLD(JPanel panel, ImageIcon icon, String name, String artist) {
+
+
+		panel.add(Box.createHorizontalStrut(5)); // left margin 
+
+		RoundedPanel rp = new RoundedPanel(25);
+		rp.setSize(190, 270);
+		rp.setBackground(new Color(28, 28, 28));
+		rp.setLayout(null);
+
+		panel.add(rp);
+
+		RoundedPanel image = new RoundedPanel(25);
+		image.setBounds(20, 24, 148, 137);
+		image.setLayout(new BorderLayout(0, 0));
+		image.setBackground(new Color(28, 28, 28));
+
+		rp.add(image);
+
+		// Utiliza RoundedImageIcon en lugar de ImageIcon para redondear la imagen
+		JLabel lblIMG = new JLabel(new RoundedImageIcon(icon,150,140));
+		lblIMG.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIMG.setVerticalAlignment(SwingConstants.CENTER);
+
+		// Aplica bordes y transparencia al JLabel
+		lblIMG.setOpaque(false);
+
+		// Añade el JLabel al RoundedPanel
+		image.add(lblIMG);
+
+		JLabel lblPlaylistName = new JLabel(name);
+		lblPlaylistName.setForeground(new Color(255, 255, 255));
+		lblPlaylistName.setBounds(20, 175, 146, 22);
+		lblPlaylistName.setFont(new Font("Dialog", Font.BOLD, 24));
+		rp.add(lblPlaylistName);
+
+		JLabel lblPlaylistArtist = new JLabel(artist);
+		lblPlaylistArtist.setVerticalAlignment(SwingConstants.TOP);
+		lblPlaylistArtist.setForeground(new Color(140, 140, 140));
+		lblPlaylistArtist.setBounds(20, 208, 148, 51);
+		lblPlaylistArtist.setFont(new Font("Dialog", Font.BOLD, 14));
+		rp.add(lblPlaylistArtist);
+
+
+
 		panel.add(Box.createHorizontalStrut(20)); // right margin 
 
 		// Set the size directly when adding the playlist panel
@@ -554,9 +611,7 @@ public class Functions {
 	}
 
 
-
-
-
+	
 
 	/*---*/
 	/*- -*/

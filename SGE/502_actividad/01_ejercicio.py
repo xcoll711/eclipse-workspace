@@ -28,4 +28,4 @@ while intentos < 6:
         print("Por favor, introduce un número válido.")
 
 if intentos == 6 and numero_jugador != numero_aleatorio:
-    print(f"Lo siento, no adivinaste el número {numero_aleatorio} en 6 intentos. Juega de nuevo!")
+    print(f"Lo siento, no adivinaste el número {numero_aleatorio} en {intentos} intentos. Juega de nuevo!")

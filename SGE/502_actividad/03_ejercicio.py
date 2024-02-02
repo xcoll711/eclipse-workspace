@@ -6,10 +6,8 @@ numero = int(input("Ingrese un número: "))
 
 tabla = []
 
-# Calcular y almacenar la tabla de multiplicar hasta el 10 en la lista
 for i in range(1, 11):
     resultado = numero * i
     tabla.append(resultado)
 
-# Imprimir la lista con la tabla de multiplicar
 print(f"La tabla de multiplicar de {numero} hasta el 10 es: {tabla}")

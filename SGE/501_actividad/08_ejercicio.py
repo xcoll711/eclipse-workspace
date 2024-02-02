@@ -20,14 +20,14 @@ while True:
     if opcion == "1":
         
         print("\n----")
-        for nombre, info_estudiante in estudiantes.items():
+        for nombre, info in estudiantes.items():
             print("\n\nInformación del estudiante:")
             print("Nombre:", nombre)
-            print("Edad:", info_estudiante["Edad"])
-            print("Calificaciones:", info_estudiante["Calificaciones"])
+            print("Edad:", info["Edad"])
+            print("Calificaciones:", info["Calificaciones"])
             
-            total_calificaciones = sum(info_estudiante["Calificaciones"])
-            promedio = total_calificaciones / len(info_estudiante["Calificaciones"])
+            total_calificaciones = sum(info["Calificaciones"])
+            promedio = total_calificaciones / len(info["Calificaciones"])
             
             print("Promedio de calificaciones:", promedio)
 
