@@ -27,9 +27,9 @@ public class ClienteSMTP2 {
 		      
 		      client.login();
 		    
-		      String remitente ="xavisip24@gmail.com";
+		      String remitente ="xavisip24@hotmail.com";
 		      String destino1="xcoll20485@iesjoanramis.org";
-		      String destino2="xavisip24@gmail.com";		      
+		      String destino2="xavisip24@hotmail.com";		      
 		      String asunto="Prueba de SMTPClient";
 		      String mensaje = "Hola. \nEnviando saludos.\nChao.";
 		      

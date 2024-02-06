@@ -19,11 +19,11 @@ public class ClienteSMTP3 {
 		AuthenticatingSMTPClient client = new AuthenticatingSMTPClient();
 
 		// datos del usuario y del servidor
-		String server = "smtp.gmail.com";
-		String username = "correo@gmail.com";
-		String password = "claveusuario";
+		String server = "smtp-mail.outlook.com";
+		String username = "xavisip24@hotmail.com";
+		String password = "sepzclltgpddmmqb";
 		int puerto = 587;
-		String remitente = "correo@gmail.com";
+		String remitente = "xavisip24@hotmail.com";
 
 		try {
 			int respuesta;
@@ -58,7 +58,7 @@ public class ClienteSMTP3 {
 				// se realiza la autenticaci�n con el servidor
 				if (client.auth(AuthenticatingSMTPClient.AUTH_METHOD.LOGIN, username, password)) {
 					System.out.println("4 - " + client.getReplyString());
-					String destino1 = "mariajesusramos@brianda.net";
+					String destino1 = "xcoll20485@iesjoanramis.org";
 					String asunto = "Prueba de SMTPClient con GMAIL";
 					String mensaje = "Hola. \nEnviando saludos.\nUsando  GMAIL.\nChao.";
 					// se crea la cabecera
